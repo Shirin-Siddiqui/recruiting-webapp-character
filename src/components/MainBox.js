@@ -16,12 +16,25 @@ const MainBox = ({ children }) => {
       Charisma: 10,
     });
     
-const handleIncrement = (attribute) => { // Increment Handler for Attribute List
-    setAttributes((prevAttributes) => ({
-        ...prevAttributes,
-        [attribute]: prevAttributes[attribute] + 1,
-    }));
- };
+      // Helper function to calculate the total attribute value
+  const calculateTotalAttributeValue = () => {
+    const total = ATTRIBUTE_LIST.reduce((acc, attribute) => acc + attributes[attribute], 0);
+    return total;
+  };
+
+    const handleIncrement = (attribute) => { // Increment Handler for Attribute List
+        const total = calculateTotalAttributeValue();
+    
+        // Check if the total attribute value is less than 70 before incrementing
+        if (total + 1 <= 70) {
+          setAttributes((prevAttributes) => ({
+            ...prevAttributes,
+            [attribute]: prevAttributes[attribute] + 1,
+          }));
+        } else {
+          alert("Maximum total attribute value (70) reached.");
+        }
+      };
 
 const handleDecrement = (attribute) => { // Decrement Handler for Attribute List
     setAttributes((prevAttributes) => ({
