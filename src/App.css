@@ -16,6 +16,17 @@
   }
 }
 
+.meets-requirements {
+  color: red;
+}
+
+.square-button {
+  width: 20px; 
+  height: 20px; 
+  font-size: 14px; 
+  padding: 0; 
+}
+
 .App-header {
   background-color: #282c34;
   display: flex;
