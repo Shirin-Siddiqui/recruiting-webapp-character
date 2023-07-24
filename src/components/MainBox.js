@@ -39,6 +39,12 @@ const doesCharacterMeetRequirements = (className) => { // Character Requirements
     }
     return true;
   };
+
+  
+const getAbilityModifier = (value) => {  // Helper function to calculate the ability modifier for a given attribute value
+    const modifier = Math.floor((value - 10) / 2);
+    return modifier >= 0 ? `+${modifier}` : `${modifier}`;
+};
     
   return (
     <div style={mainBoxContainerStyle}>
@@ -51,11 +57,11 @@ const doesCharacterMeetRequirements = (className) => { // Character Requirements
             <h1>Attributes</h1>
             {ATTRIBUTE_LIST.map((attribute) => {
               const attributeValue = attributes[attribute];
-
+              const modifier = getAbilityModifier(attributeValue); // Ability Modifier
               return (
                 <div key={attribute} style={{ display: 'flex', justifyContent: 'space-between',alignItems: 'center' }}>
                   <p style={{ flex: 1 }}>
-                    {attribute}: {attributeValue} 
+                    {attribute}: {attributeValue} (Modifier: {modifier})
                   </p>
                   <button className="square-button" onClick={() => handleIncrement(attribute)}>+</button>
                   <button className="square-button" onClick={() => handleDecrement(attribute)}>-</button>
