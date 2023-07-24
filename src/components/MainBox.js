@@ -71,6 +71,17 @@ const doesCharacterMeetRequirements = (className) => { // Character Requirements
               </div>
             ))}
           </div>
+          {selectedClass && (
+            <div style={statisticsBoxStyle}>
+              <h1>Minimum Required Statistics</h1>
+              {Object.entries(CLASS_LIST[selectedClass]).map(([attribute, value]) => (
+                <p key={attribute}>
+                  {attribute}: {value}
+                </p>
+              ))}
+              <button onClick={() => setSelectedClass(null)}>Collapse</button>
+            </div>
+          )}
           
           <div style={verticalBoxStyle}>
             <h1>Skills</h1>
