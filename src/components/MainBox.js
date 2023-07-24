@@ -16,21 +16,29 @@ const MainBox = ({ children }) => {
       Charisma: 10,
     });
     
-const handleIncrement = (attribute) => {
+const handleIncrement = (attribute) => { // Increment Handler for Attribute List
     setAttributes((prevAttributes) => ({
         ...prevAttributes,
         [attribute]: prevAttributes[attribute] + 1,
     }));
  };
 
-const handleDecrement = (attribute) => {
+const handleDecrement = (attribute) => { // Decrement Handler for Attribute List
     setAttributes((prevAttributes) => ({
         ...prevAttributes,
         [attribute]: prevAttributes[attribute] - 1,
     }));
 };
 
-
+const doesCharacterMeetRequirements = (className) => { // Character Requirements Check
+    const classRequirements = CLASS_LIST[className];
+    for (const attribute in classRequirements) {
+      if (attributes[attribute] < classRequirements[attribute]) {
+        return false;
+      }
+    }
+    return true;
+  };
     
   return (
     <div style={mainBoxContainerStyle}>
@@ -57,7 +65,11 @@ const handleDecrement = (attribute) => {
           </div>
           <div style={verticalBoxStyle}>
             <h1>Classes</h1>
-            
+            {classHeaders.map((className) => (
+              <div key={className} onClick={() => setSelectedClass(className)} className={doesCharacterMeetRequirements(className) ? 'meets-requirements' : ''}>
+                {className}
+              </div>
+            ))}
           </div>
           
           <div style={verticalBoxStyle}>
