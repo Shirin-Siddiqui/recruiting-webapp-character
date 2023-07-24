@@ -1,16 +1,37 @@
 import React, { useState } from 'react';
 import { ATTRIBUTE_LIST, CLASS_LIST, SKILL_LIST } from '../consts.js'; // Import SKILL_LIST from consts.js
 
-const statisticsBoxStyle = {
-  border: '1px solid white',
-  boxShadow: '0 0 10px rgba(255, 255, 255, 0.3)',
-  padding: '10px',
-  maxWidth: '400px',
-};
+
 
 const MainBox = ({ children }) => {
+    const classHeaders = Object.keys(CLASS_LIST);
+    const [selectedClass, setSelectedClass] = useState(null);
+  
+    const [attributes, setAttributes] = useState({
+      Strength: 10,
+      Dexterity: 10,
+      Constitution: 10,
+      Intelligence: 10,
+      Wisdom: 10,
+      Charisma: 10,
+    });
+    
+const handleIncrement = (attribute) => {
+    setAttributes((prevAttributes) => ({
+        ...prevAttributes,
+        [attribute]: prevAttributes[attribute] + 1,
+    }));
+ };
+
+const handleDecrement = (attribute) => {
+    setAttributes((prevAttributes) => ({
+        ...prevAttributes,
+        [attribute]: prevAttributes[attribute] - 1,
+    }));
+};
 
 
+    
   return (
     <div style={mainBoxContainerStyle}>
       <div style={mainBoxStyle}>
@@ -20,7 +41,19 @@ const MainBox = ({ children }) => {
         <div style={verticalBoxContainerStyle}>
           <div style={verticalBoxStyle}>
             <h1>Attributes</h1>
-            
+            {ATTRIBUTE_LIST.map((attribute) => {
+              const attributeValue = attributes[attribute];
+
+              return (
+                <div key={attribute} style={{ display: 'flex', justifyContent: 'space-between',alignItems: 'center' }}>
+                  <p style={{ flex: 1 }}>
+                    {attribute}: {attributeValue} 
+                  </p>
+                  <button className="square-button" onClick={() => handleIncrement(attribute)}>+</button>
+                  <button className="square-button" onClick={() => handleDecrement(attribute)}>-</button>
+                </div>
+              );
+            })}
           </div>
           <div style={verticalBoxStyle}>
             <h1>Classes</h1>
@@ -60,6 +93,13 @@ const verticalBoxContainerStyle = {
   justifyContent: 'space-between',
   gap: '20px',
 };
+
+const statisticsBoxStyle = {
+    border: '1px solid white',
+    boxShadow: '0 0 10px rgba(255, 255, 255, 0.3)',
+    padding: '10px',
+    maxWidth: '400px',
+  };
 
 const verticalBoxStyle = {
   border: '1px solid white',
